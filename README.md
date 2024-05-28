@@ -26,25 +26,25 @@
 - Copy the file path
 
 **4.) Assemble the Source Code:**
-Open a NASM. 
-Navigate to the directory of the game by pasting the copied file path for example:
+- Open a NASM. 
+- Navigate to the directory of the game by pasting the copied file path for example:
 
-cd C:\Users\Documents\GitHub\haribird
+    cd C:\Users\Documents\GitHub\haribird
 
-Then, run the following command to assemble the source code into a COM file:
+- Then, run the following command to assemble the source code into a COM file:
 
-nasm -f bin fbird.asm -o fbird.com
+    nasm -f bin fbird.asm -o fbird.com
 
 **5.) Run Haribird in DOSBox:**
-Open DOSBox.
-Mount the directory of the Haribird file, for example:
+- Open DOSBox.
+- Mount the directory of the Haribird file, for example:
+    
+    Mount C C:\Users\Documents\GitHub\haribird
 
-Mount C C:\Users\Documents\GitHub\haribird
+- Change to the C: drive by entering:
 
-Change to the C: drive by entering:
+    c:
 
-c:
+- Run the game by typing:
 
-Run the game by typing:
-
-fbird.com
+    fbird.com
