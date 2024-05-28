@@ -14,6 +14,7 @@
 - Rico, Julianne Cyrille T.
 - Toribio, Louisse Andrea Mae M.
 
+
 ### To compile and run the game on DOSBox, follow these steps: 
 
 **1.) Download and Install NASM (Netwide Assembler)**
@@ -26,8 +27,9 @@
 
 **4.) Assemble the Source Code:**
       Open a NASM. 
-      Run the following command to assemble the source code into a COM file:
-            cd (paste the filepath of the haribird file)
+      Navigate to the directory of the game by pasting the copied file path:
+             cd C:\Users\Documents\GitHub\haribird
+      Then, run the following command to assemble the source code into a COM file:
             nasm -f bin fbird.asm -o fbird.com
 
 **5.) Run F-Bird in DOSBox:**
