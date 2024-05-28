@@ -1,7 +1,6 @@
 # GROUP 3 - BLOCK 2 ARCHITECTURE & ORGANIZATION
 
 ### MEMBERS: 
-- Amper, Miracle Joy F.
 - Bagaporo, Ma. Alice Euna M.
 - Caliguia, Marcuz M.
 - Catchillar, Ma. Geleen M.
