@@ -12,6 +12,7 @@
         ; Display menu
         ;
 menu:
+        call clear_screen
         mov di,0x0178   ; Start position for "GROUP 3 PRESENTS:" (row 6, column 30)
         mov ax,0x0e47   ; 'G' in yellow
         stosw
@@ -66,7 +67,7 @@ menu:
 
 
        ; add di,0x00a0*3 ; Move 3 rows down
-
+       
         mov di,0x0364   ; Start position for "choose difficulty" (row 10, column 32-)
         mov ax,0x0e43   ; 'c' in yellow
         stosw
@@ -350,13 +351,174 @@ fb16:   add al,[di+2]   ; Get character below head
         stosw
         mov al,0x21     ; '!'
         stosw
-        mov cx,100      ; Wait 100 frames
+        mov cx,80      ; Wait 80 frames
 fb20:   push cx
         call wait_frame 
         pop cx
         loop fb20
         call clear_screen ; Clears the screen muna to setup for menu
-        jmp menu          ; Restart
+        jmp game_over_menu        ; Restart
+game_over_menu:
+ 
+        mov di, 0x0364   ; Start position for "GAME OVER" (row 10, column 22)
+        mov ax, 0x0447   ; 'G' in yellow
+        stosw
+        mov al, 0x41     ; 'A'
+        stosw
+        mov al, 0x4d     ; 'M'
+        stosw
+        mov al, 0x45     ; 'E'
+        stosw
+        mov al, 0x20     ; ' ' (space)
+        stosw
+        mov al, 0x4f     ; 'O'
+        stosw
+        mov al, 0x56     ; 'V'
+        stosw
+        mov al, 0x45     ; 'E'
+        stosw
+        mov al, 0x52     ; 'R'
+        stosw
+        mov al, 0x21     ; '!'
+        stosw
+
+        add di, 0x00a0*2 ; Move 2 rows down
+
+        ; Start position for the message (row 12, column 10)
+        mov di, 0x0358 + 0x00a0*2
+        mov ax, 0x0457   ; 'W' in yellow
+        stosw
+        mov al, 0x6f     ; 'o'
+        stosw
+        mov al, 0x75     ; 'u'
+        stosw
+        mov al, 0x6c     ; 'l'
+        stosw
+        mov al, 0x64     ; 'd'
+        stosw
+        mov al, 0x20     ; ' ' (space)
+        stosw
+        mov al, 0x79     ; 'y'
+        stosw
+        mov al, 0x6f     ; 'o'
+        stosw
+        mov al, 0x75     ; 'u'
+        stosw
+        mov al, 0x20     ; ' ' (space)
+        stosw
+        mov al, 0x6c     ; 'l'
+        stosw
+        mov al, 0x69     ; 'i'
+        stosw
+        mov al, 0x6b     ; 'k'
+        stosw
+        mov al, 0x65     ; 'e'
+        stosw
+        mov al, 0x20     ; ' ' (space)
+        stosw
+        mov al, 0x74     ; 't'
+        stosw
+        mov al, 0x6f     ; 'o'
+        stosw
+        mov al, 0x20     ; ' ' (space)
+        stosw
+        mov al, 0x74     ; 't'
+        stosw
+        mov al, 0x72     ; 'r'
+        stosw
+        mov al, 0x79     ; 'y'
+        stosw
+        mov al, 0x20     ; ' ' (space)
+        stosw
+        mov al, 0x61     ; 'a'
+        stosw
+        mov al, 0x67     ; 'g'
+        stosw
+        mov al, 0x61     ; 'a'
+        stosw
+        mov al, 0x69     ; 'i'
+        stosw
+        mov al, 0x6e     ; 'n'
+        stosw
+        mov al, 0x3f     ; '?'
+        stosw
+
+        add di, 0x00a0   ; Move 1 row down
+
+        ;"1) Yes"
+        mov di, 0x0364 + 0x00a0*4   
+        mov ax, 0x0431   ; '1' in yellow
+        stosw
+        mov al, 0x29     ; ')'
+        stosw
+        mov al, 0x20     ; ' ' (space)
+        stosw
+        mov al, 0x59     ; 'Y'
+        stosw
+        mov al, 0x65     ; 'e'
+        stosw
+        mov al, 0x73     ; 's'
+        stosw
+
+        add di, 0x00a0   ;
+
+        
+        mov di, 0x0364 + 0x00a0*5  
+        mov ax, 0x0432   ; '2' in yellow
+        stosw
+        mov al, 0x29     ; ')'
+        stosw
+        mov al, 0x20     ; ' ' (space)
+        stosw
+        mov al, 0x4e     ; 'N'
+        stosw
+        mov al, 0x6f     ; 'o'
+        stosw
+        mov al, 0x2c     ; ','
+        stosw
+        mov al, 0x20     ; ' ' (space)
+        stosw
+        mov al, 0x62     ; 'b'
+        stosw
+        mov al, 0x61     ; 'a'
+        stosw
+        mov al, 0x63     ; 'c'
+        stosw
+        mov al, 0x6b     ; 'k'
+        stosw
+        mov al, 0x20     ; ' ' (space)
+        stosw
+        mov al, 0x74     ; 't'
+        stosw
+        mov al, 0x6f     ; 'o'
+        stosw
+        mov al, 0x20     ; ' ' (space)
+        stosw
+        mov al, 0x6d     ; 'm'
+        stosw
+        mov al, 0x65     ; 'e'
+        stosw
+        mov al, 0x6e     ; 'n'
+        stosw
+        mov al, 0x75     ; 'u'
+        stosw
+
+        add di, 2    ; Move one position to the right to place the cursor after ": "
+
+
+game_over_read_input:
+                xor al, al
+                mov ah, 00h     ; Function 0 of int 16h: read keyboard input
+                int 0x16        ; BIOS interrupt call
+
+		cmp al, '1' ; restart game
+		je fb21
+
+		cmp al, '2' ; jump to menu again
+		je menu
+
+		jmp game_over_read_input
+		;BREAK OUT THE LOOP;
 
 ; NEXT PROCEDURE AFTER THE FB 16 IF EVER THERES NO COLLISION
 fb19:   call wait_frame ; Wait for frame 
