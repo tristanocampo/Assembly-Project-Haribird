@@ -630,24 +630,7 @@ fb2:    mov cx,79       ; 79 columns
         lodsw           ; Advance source to keep pair source/target
         cmp si,0x0fa2   ; All scrolled?
         jnz fb2         ; No, jump
-        ;
-        ; Insert houses
-        ;
-;         mov word [0x0f9e],0x02df        ; Terrain
-;         in al,(0x40)    ; Get "random" number
-;         and al,0x70
-;         jz fb5
-;         mov bx,0x0408   ; House of one floor
-;         mov [0x0efe],bx
-;         mov di,0x0e5e
-;         and al,0x20     ; Check "random" number
-;         jz fb3
-;         mov [di],bx     ; House of two floors
-;         sub di,0x00a0
-; fb3:    mov word [di],0x091e ; Add roof
-;         ;
-;         ; Check if it's time to insert a column
-;         ;
+
 fb5:    dec word [next] ; Decrease time (column really) for next pipe
         mov bx,[next]
         cmp bx,0x03     ; bx = 3,2,1,0 for the four columns making the pipe
